@@ -5,7 +5,7 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ms-auto my-2 my-lg-0">
-          <li class="nav-item"><RouterLink to="/convert" class="nav-link">Convert</RouterLink></li>
+          <li class="nav-item"><RouterLink to="/minimize" class="nav-link">Minimize</RouterLink></li>
           <li class="nav-item"><RouterLink to="/contact" class="nav-link">Contact</RouterLink></li>
         </ul>
       </div>

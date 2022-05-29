@@ -1,14 +1,14 @@
 <template>
   <Navigation :shrink=true />
-  <Convert />
+  <Minimize />
   <Footer />
 </template>
 
 <script>
   import Navigation from '../../components/mini_url/Navigation.vue';
-  import Convert from '../../components/mini_url/Convert.vue';
+  import Minimize from '../../components/mini_url/Minimize.vue';
   import Footer from '../../components/mini_url/Footer.vue';
   export default {
-    components: {Navigation, Convert, Footer}
+    components: {Navigation, Minimize, Footer}
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <section class="page-section" id="services">
     <div class="container px-4 px-lg-5 text-center">
-      <h2 class="text-center mt-0">Minimize Your URL | Mini URL</h2>
+      <h2 class="text-center mt-0">Minimize Your URL</h2>
       <hr class="divider" />
       <p class="text-muted mb-5">Want to minimize your URL? Let us do it for you! <br /> Just put the URL and click Minimize button!</p>
       <div class="row gx-4 gx-lg-5 justify-content-center">

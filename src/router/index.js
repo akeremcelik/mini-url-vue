@@ -10,9 +10,9 @@ const router = createRouter({
       component: IndexView
     },
     {
-      path: '/convert',
-      name: 'convert',
-      component: () => import('../views/mini_url/ConvertView.vue')
+      path: '/minimize',
+      name: 'minimize',
+      component: () => import('../views/mini_url/MinimizeView.vue')
     },
     {
       path: '/contact',
