@@ -63,7 +63,7 @@
 
       watch(response, (newResponse) => {
         if(newResponse.status == 'success') {
-          createToast('Thank you for getting in touch!', {
+          createToast('Thank you for getting in touch', {
             type: 'success'
           });
           resetForm();
