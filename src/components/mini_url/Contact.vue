@@ -35,21 +35,18 @@
             <!---->
             <!-- This is what your users will see when the form-->
             <!-- has successfully submitted-->
-            <div class="d-none" id="submitSuccessMessage">
+            <div v-if="response.status=='success'" id="submitSuccessMessage">
               <div class="text-center mb-3">
                 <div class="fw-bolder">Form submission successful!</div>
-                To activate this form, sign up at
-                <br />
-                <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
               </div>
             </div>
             <!-- Submit error message-->
             <!---->
             <!-- This is what your users will see when there is-->
             <!-- an error submitting the form-->
-            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+            <div v-if="response.status=='error'" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error: {{ response.message }}</div></div>
             <!-- Submit Button-->
-            <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Submit</button></div>
+            <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit" :class="response.status=='loading' && 'disabled'">Submit</button></div>
           </form>
         </div>
       </div>
@@ -58,7 +55,7 @@
 </template>
 
 <script>
-  import {reactive} from "vue";
+  import {reactive, watch} from "vue";
   import useContact from "../../composables/useContact.vue";
 
   export default {
@@ -67,13 +64,22 @@
         'from': '',
         'message': ''
       });
+      const resetForm = () => {
+        form.from = '';
+        form.message = '';
+      }
 
-      const { submitForm:useForm } = useContact();
+      const { submitForm:useForm, response} = useContact();
       const submitForm = async () => {
         await useForm({...form});
       }
 
-      return {form, submitForm}
+      watch(response, (newResponse) => {
+        if(newResponse.status == 'success')
+          resetForm();
+      })
+
+      return {form, submitForm, response}
     }
   }
 </script>
