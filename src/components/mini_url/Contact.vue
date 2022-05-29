@@ -43,7 +43,7 @@
 <script>
   import {reactive, watch} from "vue";
   import useContact from "../../composables/useContact.vue";
-  import { createToast } from 'mosha-vue-toastify';
+  import {createToast} from 'mosha-vue-toastify';
 
   export default {
     setup() {

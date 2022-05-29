@@ -70,7 +70,7 @@
           });
       })
 
-      return { url, submitForm, response, copyMiniUrlToClipboard, miniUrl, minimizeAgain }
+      return {url, submitForm, response, copyMiniUrlToClipboard, miniUrl, minimizeAgain}
     }
   }
 </script>
