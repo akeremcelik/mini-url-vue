@@ -11,6 +11,7 @@
       response.status = '';
       response.message = '';
     }
+    const url = reactive({})
 
     const submitForm = async (data) => {
       resetResponse();
@@ -25,6 +26,19 @@
       }
     }
 
-    return {submitForm, response, resetResponse}
+    const getUrl = async (key) => {
+      resetResponse();
+      try {
+        response.status = 'loading';
+        const res = await axios.get(import.meta.env.VITE_API_URL + '/url/' + key);
+        response.status = 'success';
+        response.message = res.data;
+      } catch (e) {
+        response.status = 'error';
+        response.message = e.message;
+      }
+    }
+
+    return {submitForm, response, resetResponse, getUrl}
   }
 </script>

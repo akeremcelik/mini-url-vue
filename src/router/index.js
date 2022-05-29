@@ -18,7 +18,16 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: () => import('../views/mini_url/ContactView.vue')
-    }
+    },
+    {
+      path: '/u/:key',
+      component: () => import('../composables/useRedirect.vue')
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'pageNotFound',
+      component: () => import('../views/PageNotFoundView.vue')
+    },
   ]
 })
 
