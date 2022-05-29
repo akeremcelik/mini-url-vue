@@ -31,20 +31,6 @@
               <label for="message">Message</label>
               <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
             </div>
-            <!-- Submit success message-->
-            <!---->
-            <!-- This is what your users will see when the form-->
-            <!-- has successfully submitted-->
-            <div v-if="response.status=='success'" id="submitSuccessMessage">
-              <div class="text-center mb-3">
-                <div class="fw-bolder">Form submission successful!</div>
-              </div>
-            </div>
-            <!-- Submit error message-->
-            <!---->
-            <!-- This is what your users will see when there is-->
-            <!-- an error submitting the form-->
-            <div v-if="response.status=='error'" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error: {{ response.message }}</div></div>
             <!-- Submit Button-->
             <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit" :class="response.status=='loading' && 'disabled'">Submit</button></div>
           </form>
@@ -57,6 +43,7 @@
 <script>
   import {reactive, watch} from "vue";
   import useContact from "../../composables/useContact.vue";
+  import { createToast } from 'mosha-vue-toastify';
 
   export default {
     setup() {
@@ -75,8 +62,15 @@
       }
 
       watch(response, (newResponse) => {
-        if(newResponse.status == 'success')
+        if(newResponse.status == 'success') {
+          createToast('Thank you for getting in touch!', {
+            type: 'success'
+          });
           resetForm();
+        } else if(newResponse.status == 'error')
+          createToast(response.message, {
+            type: 'danger'
+          });
       })
 
       return {form, submitForm, response}
