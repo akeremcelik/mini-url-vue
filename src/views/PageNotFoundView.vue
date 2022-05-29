@@ -1,27 +1,44 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="error-template">
-          <h1>
-            Oops!</h1>
-          <h2>
-            404 Not Found</h2>
-          <div class="error-details">
-            Sorry, an error has occured, Requested page not found!
-          </div>
-          <div class="error-actions">
-            <RouterLink to="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>Take Me Home</RouterLink>
-            <RouterLink to="/contact" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-envelope"></span>Contact Support</RouterLink>
-          </div>
-        </div>
-      </div>
+  <div id="main">
+    <div class="fof">
+      <h1>Error 404</h1>
+      <p>
+        <RouterLink to="/">Go Home</RouterLink>
+      </p>
     </div>
   </div>
 </template>
 
 <style>
-  .error-template {padding: 40px 15px;text-align: center;}
-  .error-actions {margin-top:15px;margin-bottom:15px;}
-  .error-actions .btn { margin-right:10px; }
+  #main{
+    transition: all 0.6s;
+    font-family: 'Lato', sans-serif;
+    color: #888;
+    margin: 0;
+    display: table;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+  }
+
+  #main .fof{
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  #main .fof h1{
+    font-size: 50px;
+    display: inline-block;
+    padding-right: 12px;
+    animation: type .5s alternate infinite;
+  }
+
+  #main .fof a{
+    color: black;
+  }
+
+  @keyframes type{
+    from{box-shadow: inset -3px 0px 0px #888;}
+    to{box-shadow: inset -3px 0px 0px transparent;}
+  }
 </style>
