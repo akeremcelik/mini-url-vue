@@ -21,8 +21,8 @@
           <div class="input-group mb-3">
             <input type="text" class="form-control bg-light" :value="miniUrl" aria-describedby="basic-addon2" disabled>
             <div class="input-group-append" style="cursor: pointer" @click="copyMiniUrlToClipboard">
-              <span class="input-group-text bg-white" id="basic-addon2">
-                <i class="bi-files fs-6 text-info" />
+              <span class="input-group-text" id="basic-addon2">
+                <i class="bi-files fs-6" />
               </span>
             </div>
           </div>
@@ -70,3 +70,15 @@
     }
   }
 </script>
+
+<style>
+  #basic-addon2 {
+    background-color: white;
+    color: #0dcaf0;
+  }
+
+  #basic-addon2:hover {
+    background-color: #0dcaf0;
+    color: white;
+  }
+</style>

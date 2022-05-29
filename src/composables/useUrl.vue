@@ -18,9 +18,9 @@
       resetResponse();
       try {
         response.status = 'loading';
-        const res = await axios.post('http://localhost:8000/api/url', data);
+        const res = await axios.post(import.meta.env.VITE_API_URL + '/url', data);
         response.status = 'success';
-        miniUrl.value = window.location.host + '/' + res.data.data.key;
+        miniUrl.value = import.meta.env.VITE_URL + '/' + res.data.data.key;
       } catch (e) {
         response.status = 'error';
         response.message = e.message;

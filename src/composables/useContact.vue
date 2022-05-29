@@ -16,7 +16,7 @@
       resetResponse();
       try {
         response.status = 'loading';
-        await axios.post('http://localhost:8000/api/contact', data);
+        await axios.post(import.meta.env.VITE_API_URL + '/contact', data);
         response.status = 'success';
       } catch (e) {
         response.status = 'error';
