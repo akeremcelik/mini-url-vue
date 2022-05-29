@@ -41,8 +41,9 @@
   export default {
     setup() {
       const url = ref()
+      const miniUrl = ref()
 
-      const { submitForm:useForm, response, miniUrl, resetResponse } = useUrl();
+      const { submitForm:useForm, response, resetResponse } = useUrl();
       const submitForm = async () => {
         await useForm({ url: url.value });
       }
@@ -57,10 +58,13 @@
       const minimizeAgain = () => {
         resetResponse();
         url.value = null
+        miniUrl.value = null
       }
 
       watch(response, (newResponse) => {
-        if(newResponse.status == 'error')
+        if(newResponse.status == 'success')
+          miniUrl.value = import.meta.env.VITE_URL + '/' + response.message.data.key;
+        else if(newResponse.status == 'error')
           createToast(response.message, {
             type: 'danger'
           });

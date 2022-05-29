@@ -1,5 +1,5 @@
 <script>
-  import {ref, reactive} from "vue";
+  import {reactive} from "vue";
   import axios from 'axios'
 
   export default function() {
@@ -10,9 +10,7 @@
     const resetResponse = () => {
       response.status = '';
       response.message = '';
-      miniUrl.value = null;
     }
-    const miniUrl = ref();
 
     const submitForm = async (data) => {
       resetResponse();
@@ -20,13 +18,13 @@
         response.status = 'loading';
         const res = await axios.post(import.meta.env.VITE_API_URL + '/url', data);
         response.status = 'success';
-        miniUrl.value = import.meta.env.VITE_URL + '/' + res.data.data.key;
+        response.message = res.data;
       } catch (e) {
         response.status = 'error';
         response.message = e.message;
       }
     }
 
-    return {submitForm, response, miniUrl, resetResponse}
+    return {submitForm, response, resetResponse}
   }
 </script>
