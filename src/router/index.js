@@ -7,16 +7,19 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      meta: {title: 'Home'},
       component: IndexView
     },
     {
       path: '/minimize',
       name: 'minimize',
+      meta: {title: 'Minimize'},
       component: () => import('../views/mini_url/MinimizeView.vue')
     },
     {
       path: '/contact',
       name: 'contact',
+      meta: {title: 'Contact'},
       component: () => import('../views/mini_url/ContactView.vue')
     },
     {
@@ -26,9 +29,16 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       name: 'pageNotFound',
+      meta: {title: 'Page Not Found'},
       component: () => import('../views/PageNotFoundView.vue')
     },
   ]
 })
+
+const defaultTitle = 'Mini URL';
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title ?? defaultTitle
+  next();
+});
 
 export default router
