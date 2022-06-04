@@ -20,7 +20,7 @@
         response.status = 'success';
       } catch (e) {
         response.status = 'error';
-        response.message = e.message;
+        response.message = e.response.data ? e.response.data.message : e.message;
       }
     }
 
