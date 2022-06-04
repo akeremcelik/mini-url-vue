@@ -8,12 +8,14 @@
         <div class="col-lg-6">
           <form id="urlForm" data-sb-form-api-token="API_TOKEN" @submit.prevent="submitForm">
             <div class="form-floating mb-3">
-              <input class="form-control" id="url" type="text" placeholder="Enter your message here..." data-sb-validations="required" v-model="url" :disabled="response.status == 'success'" />
+              <input class="form-control" :class="v$.inputUrl.$error && 'border-danger'" id="url" type="text" placeholder="Enter your message here..." data-sb-validations="required" v-model="inputUrl" :disabled="response.status == 'success'" />
               <label for="url">URL</label>
-              <div class="invalid-feedback" data-sb-feedback="url:required">A URL is required.</div>
+              <p v-for="error of v$.inputUrl.$errors" :key="error.$uid" class="text-danger small" style="text-align: left">
+                × {{ error.$message }}
+              </p>
             </div>
             <div class="d-grid">
-              <button class="btn btn-success btn-xl text-white p-2" id="submitButton" type="submit" :class="[response.status=='loading' && 'disabled', response.status=='success' && 'd-none']">
+              <button class="btn btn-success btn-xl text-white p-2" id="submitButton" type="submit" :class="[v$.inputUrl.$invalid && 'disabled', response.status=='loading' && 'disabled', response.status=='success' && 'd-none']">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-signpost-split-fill" viewBox="0 0 16 16">
                   <path d="M7 16h2V6h5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.8 2.4A1 1 0 0 0 14 2H9v-.586a1 1 0 0 0-2 0V7H2a1 1 0 0 0-.8.4L.225 8.7a.5.5 0 0 0 0 .6l.975 1.3a1 1 0 0 0 .8.4h5v5z"/>
                 </svg>
@@ -34,7 +36,7 @@
             </div>
           </div>
           <div class="d-grid">
-            <button class="btn btn-info btn-xl text-white p-2" @click="minimizeAgain">
+            <button class="btn btn-info btn-xl text-white p-2" @click="minimizeAgain(); v$.inputUrl.$reset();">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
                 <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
@@ -52,15 +54,22 @@
   import {ref, watch} from "vue";
   import useUrl from "../../composables/useUrl.vue"
   import {createToast} from "mosha-vue-toastify";
+  import useVuelidate from '@vuelidate/core'
+  import {required, url} from '@vuelidate/validators'
 
   export default {
     setup() {
-      const url = ref()
+      const inputUrl = ref()
       const miniUrl = ref()
+
+      const rules = {
+        inputUrl: { required, url, $autoDirty: true }
+      }
+      const v$ = useVuelidate(rules, { inputUrl })
 
       const { submitForm:useForm, response, resetResponse } = useUrl();
       const submitForm = async () => {
-        await useForm({ url: url.value });
+        await useForm({ url: inputUrl.value });
       }
 
       const copyMiniUrlToClipboard = async () => {
@@ -72,7 +81,7 @@
 
       const minimizeAgain = () => {
         resetResponse();
-        url.value = null
+        inputUrl.value = null
         miniUrl.value = null
       }
 
@@ -85,7 +94,7 @@
           });
       })
 
-      return {url, submitForm, response, copyMiniUrlToClipboard, miniUrl, minimizeAgain}
+      return {inputUrl, submitForm, response, copyMiniUrlToClipboard, miniUrl, minimizeAgain, v$}
     }
   }
 </script>
