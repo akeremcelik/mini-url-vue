@@ -15,7 +15,7 @@
               </p>
             </div>
             <div class="d-grid">
-              <button class="btn btn-success btn-xl text-white p-2" id="submitButton" type="submit" :class="[v$.inputUrl.$invalid && 'disabled', response.status=='loading' && 'disabled', response.status=='success' && 'd-none']">
+              <button class="btn btn-success btn-xl text-white p-2" id="submitButton" type="submit" :class="[v$.$invalid && 'disabled', response.status=='loading' && 'disabled', response.status=='success' && 'd-none']">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-signpost-split-fill" viewBox="0 0 16 16">
                   <path d="M7 16h2V6h5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.8 2.4A1 1 0 0 0 14 2H9v-.586a1 1 0 0 0-2 0V7H2a1 1 0 0 0-.8.4L.225 8.7a.5.5 0 0 0 0 .6l.975 1.3a1 1 0 0 0 .8.4h5v5z"/>
                 </svg>
@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class="d-grid">
-            <button class="btn btn-info btn-xl text-white p-2" @click="minimizeAgain(); v$.inputUrl.$reset();">
+            <button class="btn btn-info btn-xl text-white p-2" @click="minimizeAgain">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
                 <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
@@ -69,7 +69,8 @@
 
       const { submitForm:useForm, response, resetResponse } = useUrl();
       const submitForm = async () => {
-        await useForm({ url: inputUrl.value });
+        if(await v$.value.$validate())
+          await useForm({ url: inputUrl.value });
       }
 
       const copyMiniUrlToClipboard = async () => {
@@ -83,6 +84,7 @@
         resetResponse();
         inputUrl.value = null
         miniUrl.value = null
+        v$.value.$reset();
       }
 
       watch(response, (newResponse) => {
